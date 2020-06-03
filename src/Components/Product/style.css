@@ -1,0 +1,17 @@
+.rating-core{
+  background-color: #FF9966;
+  width: 100%;
+  animation-name: ratingmation;
+  animation-duration: 1.5s;
+  opacity: 0.5;
+}
+@keyframes ratingmation {
+  from {
+    width: 0%;
+    opacity: 0;
+  };
+  to{
+    width: 100%;
+    opacity: 0.5;
+  }
+}

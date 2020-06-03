@@ -1,0 +1,19 @@
+.topbar2 {
+     margin-top: 58px;
+}
+.avatar {
+     height: 40px;
+}
+.nav-top-bar{
+     opacity: 1.0;
+     animation-name: ani;
+     animation-duration: 1s;
+}
+@keyframes ani{
+     from{
+          opacity: 0;
+     }
+     to{
+          opacity: 1;
+     }
+}
