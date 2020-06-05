@@ -4,7 +4,7 @@ class ProductRating extends React.Component{
   render(){
     return(
       <div className="container">
-        this is
+        this is product rating
       </div>
     )
   }
