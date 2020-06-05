@@ -26,7 +26,6 @@ class OrderInfo extends React.Component {
       window.scrollTo(0, currentScroll - (currentScroll / 5));
     }
   }
-
   onDetail = () => {
     const { order } = this.props;
     this.onScroll();
@@ -34,7 +33,7 @@ class OrderInfo extends React.Component {
   }
 
   statusDisplay = (status) => {
-    switch(status){
+    switch (status) {
       case 'Canceled':
         return 'badge badge-danger';
       case 'Sent':
@@ -49,7 +48,7 @@ class OrderInfo extends React.Component {
         return 'badge badge-dark';
     }
   }
-  
+
   render() {
     const { order } = this.props;
     let date = new Date(order.date);
