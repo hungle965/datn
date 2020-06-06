@@ -190,7 +190,11 @@ class Cart extends React.Component {
           </tbody>
         </table>
         <br></br>
-        <h2 className='text-center' >Your infomation</h2>
+        <h2 
+          className='text-center'
+          data-aos="fade-up"
+          data-aos-anchor-placement="top-bottom"
+        >Your infomation</h2>
         <table
           className="table table-hover"
           data-aos="fade-up"

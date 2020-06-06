@@ -3,6 +3,24 @@ import ItemOrderSeller from './ItemOrderSeller';
 import { connect } from 'react-redux';
 import * as action from '../../redux/actions/action';
 
+const checkRating = (product, valueRating) => {
+  if(product.rating){ //đã có sẵn arrRating
+    product.rating = [...product.rating,valueRating];
+    return product;
+  }else{ // chưa có arrRating
+    const arrRating = [valueRating];
+    return {...product,arrRating};
+  }
+ }
+const checkRated = (product, idUser) => {
+  let result = false;
+  if(product.userRated){
+   product.userRated.forEach(p => {
+     if(p===idUser) result = true
+   })
+  }
+  return result;
+}
 class OrderHistory extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +39,9 @@ class OrderHistory extends React.Component {
         name: '',
         address: '',
         phone: ''
-      }
+      },
+      isDisplayStar: false,
+      currentProductRating: '',
     };
   };
   componentDidMount() {
@@ -59,6 +79,15 @@ class OrderHistory extends React.Component {
     return currentUser;
   }
 
+  findProductById = (id) => {
+    const { products } = this.props;
+    let currentProduct = '';
+    products.forEach(product => {
+      if (product.id === id) currentProduct = product;
+    });
+    return currentProduct;
+  }
+
   onScroll = () => {
     let currentScroll = document.documentElement.scrollTop || document.body.scrollTop;
     if (currentScroll > 0) {
@@ -90,15 +119,42 @@ class OrderHistory extends React.Component {
     }
   }
 
+  onRating = (valueRating) => {
+    const id = JSON.parse(sessionStorage.getItem('account')).id;
+    const product = this.findProductById(this.state.currentProductRating);
+    if(checkRated(product,id)){
+      alert("You have already rated this product!!");
+      this.setState({
+        isDisplayStar: false
+      })
+    }else{
+      let userRated = [id];
+      let newP = {...product,userRated};
+      newP = checkRating(newP, valueRating);
+      this.props.onUpdateProduct(newP);
+      this.onScroll();
+      this.setState({
+        isDisplayStar: false
+      })
+    }
+  }
+
+  onToggleStarForm = (id) => {
+    this.setState({
+      isDisplayStar: true,
+      currentProductRating: id,
+    });
+  }
+
   render() {
     const { OrderDetail } = this.props;
+    const { isDisplayStar } = this.state;
     const itemOrder = OrderDetail.products.map((product, index) => {
       return (
-        <ItemOrderSeller key={index} product={product} />
+        <ItemOrderSeller  onToggleStarForm={this.onToggleStarForm} onRating={this.onRating} key={index} product={product} />
       );
     });
     const seller = this.findUserById(OrderDetail.idSeller);
-    console.log(seller);
     return (
       <div>
         <table className=" container table table-hover">
@@ -138,6 +194,16 @@ class OrderHistory extends React.Component {
             </tr>
           </tbody>
         </table>
+        {
+          !isDisplayStar ? '' :
+            <div className="alert alert-primary container">
+              <h4>Choose your rating for the product: {this.findProductById(this.state.currentProductRating).name}</h4>
+              <div className="row d-flex justify-content-center">
+                {[...Array(5).keys()].map(i =>
+                  <i key={i} type="button" onClick={() => this.onRating(i+1)} className="fas fa-star fa-2x painting"></i>)}
+              </div>
+            </div>
+        }
         <table className='container table table-hover'>
           <thead className="thead-dark">
             <tr>
@@ -168,13 +234,17 @@ const mapStateToProps = (state) => {
   return {
     OrderDetail: state.OrderDetail,
     users: state.ListUser,
-    orderStatus: state.OrderStatus
+    orderStatus: state.OrderStatus,
+    products: state.ListProduct
   };
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
     onUpdateOrder: (order) => {
       dispatch(action.updateOrderRequest(order))
+    },
+    onUpdateProduct: (product) => {
+      dispatch(action.actUpdateProductRequest(product));
     }
   }
 }

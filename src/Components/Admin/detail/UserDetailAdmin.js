@@ -83,7 +83,7 @@ class UserDetailAdmin extends React.Component {
   render() {
     const alertRedirect = (
       <Link to='/dashboard'>
-        <div class="alert alert-success" role="alert">
+        <div className="alert alert-success" role="alert">
           This is a success alert—check it out!
         </div>
       </Link>

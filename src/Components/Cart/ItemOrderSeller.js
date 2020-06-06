@@ -5,6 +5,12 @@ class ItemOrderSeller extends React.Component {
     super(props);
     this.numFormatter = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' });
   }
+  onRating = () => {
+    this.props.onRating(this.props.product.id);
+  }
+  onToggleStarForm = () => {
+    this.props.onToggleStarForm(this.props.product.id);
+  }
   render() {
     const { product } = this.props;
     return (
@@ -35,7 +41,10 @@ class ItemOrderSeller extends React.Component {
         </td>
         <td>{Number(product.price * product.quantity).toLocaleString()}</td>
         <td>
-          <button className="btn btn-sm btn-warning">Rating</button>
+          <button 
+            className="btn btn-sm btn-warning"
+            onClick={this.onToggleStarForm}
+          >Rating</button>
         </td>
       </tr>
     )
