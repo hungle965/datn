@@ -128,14 +128,21 @@ class OrderHistory extends React.Component {
         isDisplayStar: false
       })
     }else{
-      let userRated = [id];
-      let newP = {...product,userRated};
-      newP = checkRating(newP, valueRating);
-      this.props.onUpdateProduct(newP);
-      this.onScroll();
-      this.setState({
-        isDisplayStar: false
-      })
+      if(product.userRated){ 
+        product.userRated.push(id);
+        let newP = checkRating(product,valueRating);
+        this.props.onUpdateProduct(newP);
+      }else{
+        let userRated = [id];
+        let newP = {...product,userRated};
+        newP = checkRating(newP, valueRating);
+        console.log(newP);
+        this.props.onUpdateProduct(newP);
+        this.onScroll();
+        this.setState({
+          isDisplayStar: false
+        })
+      }
     }
   }
 
