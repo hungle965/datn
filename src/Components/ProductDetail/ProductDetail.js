@@ -3,6 +3,7 @@ import { compose } from 'redux'
 import { connect } from 'react-redux';
 import * as action from '../../redux/actions/action';
 import { withRouter, Link } from "react-router-dom";
+import './detail.css'
 
 const ensureArray = s => Array.isArray(s) ? s : []
 
@@ -77,9 +78,10 @@ class ProductDetail extends React.Component {
     const product = this.findProductById(idProduct);
     const user = this.findUserById(product.accountID);
     const account = JSON.parse(sessionStorage.getItem('account'));
+    const ratingValue = +(product.rating ? (product.rating.reduce((p, c) => p + c, 0) / product.rating.length).toFixed(2) : 0)
     const listCmt = product.comment ? product.comment.map((cmt, index) => {
       return (
-        <div 
+        <div
           className="row rounded about__text"
           data-aos="fade-up"
           data-aos-anchor-placement="top-bottom"
@@ -105,7 +107,7 @@ class ProductDetail extends React.Component {
                   <div className="breadcrumb__text">
                     <h2>{user.name}'s store</h2>
                     <div>
-                      <span>{product.slug}</span>
+                      <span>Category: {product.slug}</span>
                     </div>
                   </div>
                 </div>
@@ -115,7 +117,7 @@ class ProductDetail extends React.Component {
                   className="col-lg-6"
                   data-aos="fade-right"
                 >
-                  <div className="about__pic__item__large">
+                  <div className="detail-img d-flex justify-content-center">
                     <img src={product.urlPhoto} alt="" />
                   </div>
                 </div>
@@ -123,11 +125,11 @@ class ProductDetail extends React.Component {
                   <div className="about__right__text">
                     <h2>{product.name}</h2>
                     {product.desc}
-                    <div className="about__right__text__social">
-                      <i className="fa fa-facebook"></i>
-                      <i className="fa fa-twitter"></i>
-                      <i className="fa fa-youtube-play"></i>
-                      <i className="fa fa-instagram"></i>
+                    <div className="d-flex justify-content-around">
+                      <i className="fa fa-facebook fa-2x"></i>
+                      <i className="fa fa-twitter fa-2x"></i>
+                      <i className="fa fa-youtube-play fa-2x"></i>
+                      <i className="fa fa-instagram fa-2x"></i>
                     </div>
                   </div>
                   <br></br>
@@ -144,16 +146,23 @@ class ProductDetail extends React.Component {
                   <div className="text-center">
                     <h3>Customer rating</h3>
                   </div>
-                  <h1 className="text-center text-danger">5/5</h1>
+                  <h1 className="text-center text-danger">
+                    {ratingValue}/5
+                    </h1>
                   <div className="d-flex justify-content-center">
                     <i className="fas fa-star fa-2x"></i>
                     <i className="fas fa-star fa-2x"></i>
                     <i className="fas fa-star fa-2x"></i>
                     <i className="fas fa-star-half-alt fa-2x"></i>
                     <i className="far fa-star fa-2x"></i>
+                    {
+                      Array(5).map((_,index) => {
+                        console.log(index);
+                      }) 
+                    }
                   </div>
                   <div className="text-center">
-                    <p>129 ratings</p>
+                    <p>{product.rating ? product.rating.length : 0} ratings</p>
                   </div>
                 </div>
                 <div className="col-md-8">
