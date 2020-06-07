@@ -3,6 +3,26 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import * as action from '../../redux/actions/action';
 
+const getRatingProduct = (product) => { // lấy lượt rating trung bình của sản phẩm
+     let sum , avg = 0;
+     if(product.rating){
+          sum = product.rating.reduce(function(a,b){return a + b;});
+          avg = sum / product.rating.length;
+     }
+     return avg; 
+}
+
+const getRatingAverage = (products, id) => {
+     let result = [];
+     let productsAfterFilterId = products.filter(p => p.accountID === id);
+     productsAfterFilterId.forEach(product => {
+          if (getRatingProduct(product)) {
+               result.push(getRatingProduct(product));
+          }
+     });
+     console.log((result.reduce((p, c) => p + c, 0) / result.length));
+     return result ? (result.reduce((p, c) => p + c, 0) / result.length).toFixed(2) : 0; // trả về rating trung bình của người dùng
+}
 class PostProduct extends React.Component {
      constructor(props) {
           super(props);
@@ -12,7 +32,6 @@ class PostProduct extends React.Component {
                slug: 'electronic',
                desc: `decsription of your product`,
                urlPhoto: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQE1iDI1fNEj6lp118ibSXiJDioneC8wbJryXhM5xPWoH9Hl2vc&usqp=CAU',
-               status: false,
                isRedirect: 1,
                accountID: 0,
                date: 0,
@@ -51,17 +70,22 @@ class PostProduct extends React.Component {
      makeCode = () => {
           var text = "";
           var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
           for (var i = 0; i < 5; i++)
                text += possible.charAt(Math.floor(Math.random() * possible.length));
-
           return text;
      }
 
      onSubmit = (e) => {
           e.preventDefault();
-          const product = this.state;
+          let { products } = this.props;
           const account = JSON.parse(sessionStorage.getItem('account'));
+          let status = '';
+          if(getRatingAverage(products,account.id) > 3){
+              status = true
+          }else{
+              status = false
+          }
+          const product = {...this.state, status};
           if (!account) {
                alert('you need to login to post your product');
           } else if (product.name === '') {
@@ -143,7 +167,7 @@ class PostProduct extends React.Component {
                                              value={this.state.slug}
                                              onChange={this.onChange}
                                              name='slug'>
-                                            {types}
+                                             {types}
                                         </select>
                                    </div>
                                    <div className="form-group">
@@ -219,7 +243,8 @@ class PostProduct extends React.Component {
 
 const mapStateToProps = (state) => {
      return {
-          ProductTypes: state.ProductTypes
+          ProductTypes: state.ProductTypes,
+          products: state.ListProduct
      }
 }
 const mapDispatchToProps = (dispatch) => {

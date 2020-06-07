@@ -136,7 +136,6 @@ class OrderHistory extends React.Component {
         let userRated = [id];
         let newP = {...product,userRated};
         newP = checkRating(newP, valueRating);
-        console.log(newP);
         this.props.onUpdateProduct(newP);
         this.onScroll();
         this.setState({

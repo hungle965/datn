@@ -124,7 +124,9 @@ class ProductDetail extends React.Component {
                 <div className="col-lg-6">
                   <div className="about__right__text">
                     <h2>{product.name}</h2>
-                    {product.desc}
+                    <div className="bg-light desc ">
+                      {product.desc}
+                    </div>
                     <div className="d-flex justify-content-around">
                       <i className="fa fa-facebook fa-2x"></i>
                       <i className="fa fa-twitter fa-2x"></i>
@@ -150,15 +152,11 @@ class ProductDetail extends React.Component {
                     {ratingValue}/5
                     </h1>
                   <div className="d-flex justify-content-center">
-                    <i className="fas fa-star fa-2x"></i>
-                    <i className="fas fa-star fa-2x"></i>
-                    <i className="fas fa-star fa-2x"></i>
-                    <i className="fas fa-star-half-alt fa-2x"></i>
-                    <i className="far fa-star fa-2x"></i>
                     {
-                      Array(5).map((_,index) => {
-                        console.log(index);
-                      }) 
+                      [...Array(Math.floor(ratingValue)).keys()].map(i => <i key={i} className="fas fa-star fa-2x"></i>)
+                    }
+                    {
+                      [...Array(Math.ceil(5 - ratingValue)).keys()].map(i => <i key={i} className="far fa-star fa-2x"></i>)
                     }
                   </div>
                   <div className="text-center">
