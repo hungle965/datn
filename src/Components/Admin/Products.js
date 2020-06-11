@@ -17,6 +17,20 @@ class Products extends React.Component {
     this.props.fetchUsersRequest();
   }
 
+  onUpdateNewProduct = () => {
+    const today = new Date();
+    const { products } = this.props;
+    let pt = {
+      status: '1'
+    }
+    products.forEach(p => {
+      const dateP = new Date(p.date);
+      if (p.status === '0' && dateP.getFullYear() === today.getFullYear() && dateP.getMonth() === today.getMonth() && today.getDate() - dateP.getDate() > 1) {
+        this.props.updateProductRequest({ ...p, ...pt });
+      }
+    });
+  }
+
   findUserById = (id) => {
     let userr = false;
     this.props.users.map(user => {
@@ -118,7 +132,7 @@ class Products extends React.Component {
               <th scope="col" className="text-primary">store</th>
               <th scope="col" className="text-primary">price</th>
               <th scope="col" className="text-primary">status</th>
-              <th scope="col" className="text-primary"></th>
+              <th scope="col" className="text-primary"><button className="btn btn-sm btn-success">update</button></th>
               <th scope="col" className="text-primary"></th>
             </tr>
             <tr>
@@ -205,7 +219,9 @@ const mapDispatchToPops = (dispatch) => {
     fetchUsersRequest: () => {
       dispatch(action.actFetchUsersRequest());
     },
-
+    updateProductRequest: (product) => {
+      dispatch(action.actUpdateProductRequest(product));
+    }
   }
 }
 export default connect(mapStateToProps, mapDispatchToPops)(Products);
