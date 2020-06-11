@@ -128,7 +128,7 @@ class ProductDetail extends React.Component {
                 <div className="col-lg-6">
                   <div className="about__right__text">
                     <h2>{product.name}</h2>
-                    <div className="bg-light desc ">
+                    <div className="bg-light desc pd rounded ">
                       {product.desc}
                     </div>
                     <div className="d-flex justify-content-around pd">
