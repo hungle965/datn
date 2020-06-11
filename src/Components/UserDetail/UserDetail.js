@@ -191,8 +191,9 @@ class UserDetail extends React.Component {
                         onChange={this.onChange}
                       >
                         <option value=''>all</option>
-                        <option value={true} >approved</option>
-                        <option value={false}> not approved</option>
+                        <option value='0'>posted</option>
+                        <option value='1' >approved</option>
+                        <option value='-1'> not approved</option>
                       </select>
                     </th>
                     <th scope='col'></th>

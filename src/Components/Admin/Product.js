@@ -24,7 +24,13 @@ class Product extends React.Component {
         <td>{product.slug}</td>
         <td>{store.name}</td>
         <td>{this.numFormatter.format(product.price)}</td>
-        <td><span className={product.status ? 'badge badge-pill badge-primary' : 'badge badge-pill badge-warning'} >{product.status ? 'approved' : 'not approved'}</span></td>
+        <td>
+          <span className=
+            {product.status === '0' ? 'badge badge-pill badge-warning' :
+              product.status === '1' ? 'badge badge-pill badge-success' : 'badge badge-pill badge-danger'} >
+            {product.status === '0' ? 'posted' : product.status === '1' ? 'approved' : 'not approved'}
+          </span>
+        </td>
         <td className="d-flex align-items-center">
           <Link to='/admin/product-detail'>
             <button

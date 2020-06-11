@@ -13,7 +13,7 @@ class ProductDetailAdmin extends React.Component {
       slug: '',
       desc: ``,
       urlPhoto: '',
-      status: false,
+      status: '',
       isRedirect: false,
       date: '',
       accountID: '',
@@ -55,11 +55,18 @@ class ProductDetailAdmin extends React.Component {
     })
   }
 
-  toggleStatus = () => {
+  onApp = () => {
     this.setState({
-      status: !this.state.status
+      status: '1'
     })
     this.onScroll();  
+  }
+
+  onBan = () => {
+    this.setState({
+      status: '-1'
+    })
+    this.onScroll();
   }
 
   onSubmit = (e) => {
@@ -185,11 +192,14 @@ class ProductDetailAdmin extends React.Component {
               </div>
               <div className='form-group'>
                 <span 
-                  className={this.state.status ? 'badge badge-pill badge-success' : 'badge badge-pill badge-warning'}
-                  onClick={this.toggleStatus}
+                  className={this.state.status === '1' ? 'badge badge-pill badge-success' :
+                  this.state.status ==='-1'?
+                  'badge badge-pill badge-danger':'badge badge-pill badge-warning'}
+
                 >
                   {
-                    this.state.status ? 'approved' : 'not approved'
+                    this.state.status==='1' ? 'approved' :
+                    this.state.status==='-1' ? 'banned':'posted'
                   }
                 </span>
               </div>
@@ -211,10 +221,18 @@ class ProductDetailAdmin extends React.Component {
                   className="btn btn-primary"
                   onClick={this.onScroll}><i className="fas fa-save"></i> save</button>
                 <button
-                  className={this.state.status ? 'btn btn-sm btn-danger' : 'btn btn-sm btn-success'}
-                  onClick={this.toggleStatus}
+                  type="submit"
+                  className='btn btn-danger'
+                  onClick={this.onBan}
                 >
-                  {this.state.status ? 'banned' : 'approved'}
+                  Ban
+                </button>
+                <button 
+                  type="submit"
+                  className="btn btn-success"
+                  onClick={this.onApp}
+                >
+                  Approved
                 </button>
                 <Link to='/dashboard'>
                   <button

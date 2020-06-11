@@ -19,7 +19,7 @@ class ListProduct extends React.Component {
   render() {
     let { products, users, types } = this.props;
     products = products.filter((elm) => {
-      return elm.status === true
+      return elm.status === '1'
     })
     const product = products.map((product, index) => {
       let userP = '';

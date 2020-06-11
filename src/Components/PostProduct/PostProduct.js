@@ -81,9 +81,9 @@ class PostProduct extends React.Component {
           const account = JSON.parse(sessionStorage.getItem('account'));
           let status = '';
           if(getRatingAverage(products,account.id) > 3){
-              status = true
+              status = '1'
           }else{
-              status = false
+              status = '0'
           }
           const product = {...this.state, status};
           if (!account) {

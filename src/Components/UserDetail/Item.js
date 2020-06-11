@@ -25,8 +25,9 @@ class Item extends React.Component {
         <td className='text-center'>{Number(product.price).toLocaleString()}</td>
         <td className='text-center'>{product.slug}</td>
         <td className='text-center'>
-          <span className={product.status?'badge badge-pill badge-success':'badge badge-pill badge-warning'}>
-            {product.status === true ? 'approved' : 'not approved'}
+          <span className={product.status === '1'?'badge badge-pill badge-success':
+            product.status === '-1'?'badge badge-pill badge-danger':'badge badge-pill badge-warning'}>
+            {product.status === '1' ? 'approved' : product.status === '-1'? 'not approved' : 'posted'}
           </span>
         </td>
         <td>

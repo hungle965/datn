@@ -62,15 +62,19 @@ class ProductDetail extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const idUser = JSON.parse(sessionStorage.getItem('account')).id;
-    const p = this.findProductById(this.props.match.params.id);
-    const newCmt = { id: idUser, content: this.state.comment }
-    p.comment = [...ensureArray(p.comment), newCmt]
-    this.props.onCmt(p);
-    this.setState({
-      comment: '',
-    })
-    this.onScroll();
+    if (!this.state.comment) {
+      alert("content comment is nothing")
+    } else {
+      const idUser = JSON.parse(sessionStorage.getItem('account')).id;
+      const p = this.findProductById(this.props.match.params.id);
+      const newCmt = { id: idUser, content: this.state.comment }
+      p.comment = [...ensureArray(p.comment), newCmt]
+      this.props.onCmt(p);
+      this.setState({
+        comment: '',
+      })
+      this.onScroll();
+    }
   }
 
   render() {
@@ -127,7 +131,7 @@ class ProductDetail extends React.Component {
                     <div className="bg-light desc ">
                       {product.desc}
                     </div>
-                    <div className="d-flex justify-content-around">
+                    <div className="d-flex justify-content-around pd">
                       <i className="fa fa-facebook fa-2x"></i>
                       <i className="fa fa-twitter fa-2x"></i>
                       <i className="fa fa-youtube-play fa-2x"></i>
