@@ -38,7 +38,7 @@ class Product extends React.Component {
 
   render() {
     const { product, user } = this.props;
-    const price = Number(product.price).toLocaleString();
+    const price =Number(product.price).toLocaleString();
     const dt = new Date(product.date);
     const rating = product.rating ? product.rating : [5];
     let sum = 0;

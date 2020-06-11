@@ -17,6 +17,7 @@ class Login extends React.Component {
       email: '',
       fullName: '',
       phone: '',
+      status: true,
       agree: false,
       listUser: []
     };
@@ -115,7 +116,8 @@ class Login extends React.Component {
       agree: this.state.agree,
       picture: 'https://freesvg.org/img/publicdomainq-0006224bvmrqd.png',
       address: this.state.address,
-      permission: ['user']
+      permission: ['user'],
+      status: true,
     };
     if (user.name === '') {
       alert('error name');

@@ -1,16 +1,41 @@
 import React from 'react';
+import Product from '../Product/Product';
+import { connect } from 'react-redux';
+import * as action from '../../redux/actions/action';
 
+
+// const getBestProduct = (products) => {
+//      let bestProduct = products[0];
+//      products.forEach(product => {
+//           if (product.orderQuantity > bestProduct.orderQuantity) bestProduct = product;
+//      });
+//      return bestProduct;
+// }
+// const findUserById = (id, users) => {
+//      let curUser = '';
+//      users.forEach(user => {
+//           if (user.id === id) curUser = user;
+//      });
+//      return curUser;
+// }
 class InfoRightBar extends React.Component {
+     constructor(props) {
+          super(props);
+          this.state = {
+               product: '',
+               user: ''
+          }
+     }
+
      render() {
+          // const {products,users} = this.props;
           return (
                <div className="sidebar__item">
+                    <div className="sidebar__item__title">
+                         <h6>lots of orders</h6>
+                    </div>
                     <div className="sidebar__about__item">
-                         <div className="sidebar__item__title">
-                              <h6>About me</h6>
-                         </div>
-                         <h6>Hi every one! I,m <span>Lena Mollein.</span></h6>
-                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                    incididunt ut labore et dolore magna aliqua.</p>
+                       best product
                     </div>
                     <div className="sidebar__follow__item">
                          <div className="sidebar__item__title">
@@ -44,4 +69,21 @@ class InfoRightBar extends React.Component {
      }
 }
 
-export default InfoRightBar;
+const mapStateToProp = (state) => {
+     return {
+          products: state.ListProduct,
+          users: state.ListUser
+     }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+     return {
+          fetchProductsRequest: () => {
+               dispatch(action.actFetchProductsRequest());
+          },
+          fetchUsersRequest: () => {
+               dispatch(action.actFetchUsersRequest());
+          }
+     }
+}
+export default connect(mapStateToProp, mapDispatchToProps)(InfoRightBar);

@@ -2,7 +2,7 @@ import * as types from '../constant/constant';
 import { findIndex } from 'lodash';
 
 
-const initialState = [ ];
+const initialState = [];
 const myReducer = (state = initialState, action) => {
      switch (action.type) {
           case types.LIST_USER:
@@ -11,10 +11,10 @@ const myReducer = (state = initialState, action) => {
 
           case types.FETCH_USERS: {
                state = action.users;
-          return [...state];
+               return [...state];
           }
 
-          case types.UPDATE_USER:{
+          case types.UPDATE_USER: {
                const index = findIndex(state, user => {
                     return user.id === action.user.id
                });
