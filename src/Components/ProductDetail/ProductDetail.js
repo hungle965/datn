@@ -16,7 +16,7 @@ class ProductDetail extends React.Component {
   }
 
   AddCart = () => {
-    const { product } = this.props;
+    const product = this.findProductById(this.props.match.params.id);
     this.props.AddCart(product);
   }
 

@@ -13,6 +13,7 @@ const myReducer = (state = initialState, action) => {
                     if (product.id === action.product.id) isHaveItem = true;
                });
                if (isHaveItem === false) {
+                    console.log(action.product);
                     const newProduct = {
                          id: action.product.id,
                          name: action.product.name,
