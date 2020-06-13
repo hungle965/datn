@@ -9,7 +9,8 @@ class ListProduct extends React.Component {
     super(props);
     this.state = {
       filterType: '',
-      sort: ''
+      sort: '',
+      keyW: '',
     }
   }
   componentDidMount() {
@@ -39,7 +40,7 @@ class ListProduct extends React.Component {
   }
 
   render() {
-    const { filterType, sort } = this.state;
+    const { filterType, sort, keyW } = this.state;
     let { products, users, types } = this.props;
     products = products.filter((elm) => {
       return elm.status === '1'
@@ -48,6 +49,11 @@ class ListProduct extends React.Component {
       products = products.filter(p => {
         return p.slug === filterType;
       })
+    }
+    if (keyW) {
+      products = products.filter(p => {
+        return p.name.toLowerCase().indexOf(keyW.toLowerCase()) !== -1;
+      });
     }
     if (sort) {
       if (sort === "cheap") {
@@ -112,7 +118,7 @@ class ListProduct extends React.Component {
           <div className="categories__grid__post">
             <div className=" row bg-cam rounded">
               <div
-                className="col pdt-16 bg-cam-active rounded type-bar"
+                className="col pdt-16 bg-cam-active rounded type-bar text-center"
                 type="button"
                 name="filterType"
                 value=''
@@ -124,26 +130,35 @@ class ListProduct extends React.Component {
               </div>
               {listTypes}
             </div>
+            <div className="breadcrumb__option pdt-16 row container">
+              <div className="col-md-6">
+                <select
+                  className="form-control form-control-sm"
+                  name='sort'
+                  value={this.state.sort}
+                  onChange={this.onChange}
+                >
+                  <option value=''>default</option>
+                  <option value='cheap'>cheap</option>
+                  <option value='expensive'>expensive</option>
+                  <option value='recent'>recent</option>
+                  <option value='far'>farthest</option>
+                </select>
+              </div>
+              <div className="col-md-6">
+                <input
+                  className="form-control form-control-sm"
+                  value={this.state.keyW}
+                  onChange={this.onChange}
+                  name='keyW'
+                  placeholder="Search"
+                />
+              </div>
+            </div>
             <div className="row">
               <div className="col-lg-8 col-md-8">
                 <div className="breadcrumb__text">
-                  <div className="breadcrumb__option pdt-16 row">
-                    <div className="col-md-3">
-                      Sort:
-                    </div>
-                    <select
-                      className="form-control form-control-sm col-md-4"
-                      name='sort'
-                      value={this.state.sort}
-                      onChange={this.onChange}
-                    >
-                      <option value=''>default</option>
-                      <option value='cheap'>cheap</option>
-                      <option value='expensive'>expensive</option>
-                      <option value='recent'>recent</option>
-                      <option value='far'>farthest</option>
-                    </select>
-                  </div>
+
                 </div>
                 {product}
                 <div className="row">

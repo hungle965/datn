@@ -1,6 +1,6 @@
 import * as types from './../constant/constant'
 
-const initialState = 'products';
+const initialState = 'orders';
 
 const myReducer = (state = initialState, action) => {
   switch (action.type) {

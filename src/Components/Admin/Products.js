@@ -132,7 +132,9 @@ class Products extends React.Component {
               <th scope="col" className="text-primary">store</th>
               <th scope="col" className="text-primary">price</th>
               <th scope="col" className="text-primary">status</th>
-              <th scope="col" className="text-primary"><button className="btn btn-sm btn-success">update</button></th>
+              <th scope="col" className="text-primary">
+                <button className="btn btn-sm btn-primary">update</button>
+              </th>
               <th scope="col" className="text-primary"></th>
             </tr>
             <tr>

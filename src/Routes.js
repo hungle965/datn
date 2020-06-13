@@ -15,6 +15,7 @@ import Dashboard from './Components/Admin/Dashboard';
 import UserDetailAdmin from './Components/Admin/detail/UserDetailAdmin';
 import ProductDetailAdmin from './Components/Admin/detail/ProductDetailAdmin';
 import ProductRating from './Components/Cart/ProductRating';
+import OrderDetailAdmin from './Components/Admin/detail/OrderDetailAdmin';
 import React from 'react';
 
 const Routes = [
@@ -97,6 +98,11 @@ const Routes = [
           path: '/rating',
           exact: false,
           main: () => < ProductRating />
+     },
+     {
+          path: '/admin/order-detail',
+          exact: false,
+          main: () => <OrderDetailAdmin />
      },
      {
           path: '',

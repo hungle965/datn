@@ -32,7 +32,7 @@ const myReducer = combineReducers({
    ManageComps,
    UserDetail,
    ProductDetailAdmin,
-   currentPage
+   currentPage,
 });
 
 export default myReducer;
