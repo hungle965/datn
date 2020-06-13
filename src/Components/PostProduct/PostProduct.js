@@ -132,7 +132,7 @@ class PostProduct extends React.Component {
           })
           let dt = new Date();
           return (
-               <div className='container'>
+               <div data-aos="fade-left" className='container'>
                     {isRedirect === 1 ? '' : isRedirect ? succesfulAlert : FailPostingAlert}
                     <div className='row'>
                          <div className='col-md-5'>

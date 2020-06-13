@@ -37,6 +37,7 @@ class Cart extends React.Component {
       phone: user.phone,
       cart: cart
     });
+    this.onScroll();
   }
 
   onChange = (e) => {

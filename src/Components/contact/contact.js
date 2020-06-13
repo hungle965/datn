@@ -13,7 +13,7 @@ class Contact extends React.Component {
   render() {
     this.onScroll();
     return (
-      <div>
+      <div data-aos="fade-left">
         <section className="contact spad">
           <div className="container">
             <div className="contact__text">

@@ -38,7 +38,7 @@ class Product extends React.Component {
 
   render() {
     const { product, user } = this.props;
-    const price =Number(product.price).toLocaleString();
+    const price = Number(product.price).toLocaleString();
     const dt = new Date(product.date);
     const rating = product.rating ? product.rating : [5];
     let sum = 0;
@@ -48,7 +48,7 @@ class Product extends React.Component {
     const RatingWrapperValue = (sum / rating.length) * 20;
     return (
       <div
-        className="categories__list__post__item border-top "
+        className="categories__list__post__item border-bottom pdbt"
         data-aos="fade-up"
         data-aos-anchor-placement="top-bottom"
       >

@@ -2,16 +2,17 @@ import React from 'react';
 import ListProduct from './../ListProduct/ListProduct';
 // import ListImgBar from './ListImgBar';
 import InfoRightBar from '../InfoRightBar/InfoRightBar';
+import './listPhoto.css'
 class CategoryBegin extends React.Component {
      render() {
           return (
-               <div>
+               <div className="bg-light">
                     <div className="container">
                          {/* <div>
                               <ListImgBar />
                          </div> */}
                          <div className="categories__post">
-                              <div className="container ">
+                              <div className="container bg-white ">
                                    <div className="row">
                                         <div className="col-lg-8 col-md-8 border-right">
                                              <ListProduct />

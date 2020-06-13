@@ -1,9 +1,22 @@
-.pdt-16{
-  padding-top: 10px;
+.pdt-16 {
+    padding-top: 10px;
 }
-.bg-cam{
-  background-color: #FDF5E6;
+
+.bg-cam {
+    background-color: #FDF5E6;
 }
-.bg-cam-active{
-  background-color: #FFEBCD;
+
+.bg-cam-active {
+    background-color: #FFEBCD;
+    animation-name: active;
+    animation-duration: 1s;
+}
+
+@keyframes active {
+    from {
+        background-color: #FFE4B5;
+    }
+    to {
+        background-color: #FFEBCD;
+    }
 }

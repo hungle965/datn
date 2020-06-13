@@ -8,15 +8,38 @@ class ListProduct extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filterType: ''
+      filterType: '',
+      sort: ''
     }
   }
   componentDidMount() {
     this.props.fetchProductsRequest();
     this.props.fetchUsersRequest();
   }
+  onChange = (e) => {
+    const target = e.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onClickType = (type) => {
+    this.setState({
+      filterType: type
+    });
+    const list = document.getElementsByClassName('type-bar');
+    [...list].forEach(item => {
+      item.classList.remove('bg-cam-active');
+      if (item.textContent === type) {
+        item.classList.add('bg-cam-active');
+      }
+    })
+  }
+
   render() {
-    const { filterType } = this.state;
+    const { filterType, sort } = this.state;
     let { products, users, types } = this.props;
     products = products.filter((elm) => {
       return elm.status === '1'
@@ -25,6 +48,36 @@ class ListProduct extends React.Component {
       products = products.filter(p => {
         return p.slug === filterType;
       })
+    }
+    if (sort) {
+      if (sort === "cheap") {
+        products = products.sort((a, b) => {
+          if (a.price > b.price) return 1;
+          else if (a.price < b.price) return -1;
+          else return 0;
+        });
+      }
+      else if (sort === "expensive") {
+        products = products.sort((a, b) => {
+          if (a.price > b.price) return -1;
+          else if (a.price < b.price) return 1;
+          else return 0;
+        })
+      }
+      else if (sort === "recent") {
+        products = products.sort((a, b) => {
+          if (a.date > b.date) return -1;
+          else if (a.date < b.date) return 1;
+          else return 0;
+        });
+      }
+      else if (sort === "far") {
+        products = products.sort((a, b) => {
+          if (a.date > b.date) return 1;
+          else if (a.date < b.date) return -1;
+          else return 0;
+        });
+      }
     }
     const product = products.map((product, index) => {
       let userP = '';
@@ -40,12 +93,12 @@ class ListProduct extends React.Component {
     const listTypes = types.map((type, index) => {
       return (
         <div
-          className="col pdt-16"
+          className="col pdt-16 type-bar rounded"
           type="button"
           key={index}
           name="filterType"
           value={type.name}
-          onClick={() => { this.setState({ filterType: type.name }) }}
+          onClick={() => { this.onClickType(type.name) }}
         >
           <p>
             {type.name}
@@ -59,11 +112,11 @@ class ListProduct extends React.Component {
           <div className="categories__grid__post">
             <div className=" row bg-cam rounded">
               <div
-                className="col pdt-16 bg-cam-active rounded"
+                className="col pdt-16 bg-cam-active rounded type-bar"
                 type="button"
                 name="filterType"
                 value=''
-                onClick={() => { this.setState({ filterType: '' }) }}
+                onClick={() => { this.onClickType('') }}
               >
                 <p>
                   all
@@ -74,11 +127,21 @@ class ListProduct extends React.Component {
             <div className="row">
               <div className="col-lg-8 col-md-8">
                 <div className="breadcrumb__text">
-                  <div className="breadcrumb__option pdt-16">
-                    <select className="form-control form-control-sm">
-                      <option>1</option>
-                      <option>1</option>
-                      <option>1</option>
+                  <div className="breadcrumb__option pdt-16 row">
+                    <div className="col-md-3">
+                      Sort:
+                    </div>
+                    <select
+                      className="form-control form-control-sm col-md-4"
+                      name='sort'
+                      value={this.state.sort}
+                      onChange={this.onChange}
+                    >
+                      <option value=''>default</option>
+                      <option value='cheap'>cheap</option>
+                      <option value='expensive'>expensive</option>
+                      <option value='recent'>recent</option>
+                      <option value='far'>farthest</option>
                     </select>
                   </div>
                 </div>
