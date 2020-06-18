@@ -79,13 +79,7 @@ class PostProduct extends React.Component {
     e.preventDefault();
     let { products } = this.props;
     const account = JSON.parse(sessionStorage.getItem('account'));
-    let status = '';
-    if (getRatingAverage(products, account.id) > 3) {
-      status = '1'
-    } else {
-      status = '0'
-    }
-    const product = { ...this.state, status };
+    const product = { ...this.state };
     if (!account) {
       alert('you need to login to post your product');
     } else if (product.name === '') {
@@ -94,7 +88,14 @@ class PostProduct extends React.Component {
       let confirmcode = this.makeCode();
       let cf = prompt(confirmcode, 'enter code to comfirm');
       if (cf === confirmcode) {
-        this.props.onPostProduct(product);
+        if (getRatingAverage(products, account.id) > 3) {
+          let stt = { status: '1' }
+          this.props.onPostProduct({ ...product, ...stt });
+        } else {
+          let stt = { status: '0' }
+          this.props.onPostProduct({ ...product, ...stt });
+        }
+
         alert('posting product succesful!');
         this.setState({
           isRedirect: true

@@ -99,7 +99,7 @@ class ListProduct extends React.Component {
     const listTypes = types.map((type, index) => {
       return (
         <div
-          className="col pdt-16 type-bar rounded"
+          className="col pdt-16 type-bar rounded text-center"
           type="button"
           key={index}
           name="filterType"

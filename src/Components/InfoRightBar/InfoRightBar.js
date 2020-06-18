@@ -65,17 +65,24 @@ class InfoRightBar extends React.Component {
             {newProduct2 ? <Product product={newProduct2} user={user4} /> : ''} */}
             {np ? <Product product={np} user={userN} /> : ''}
           </div>
-          <div className="sidebar__item__follow__links">
-            <i className="fa fa-facebook"></i>
-            <i className="fa fa-twitter"></i>
-            <i className="fa fa-youtube-play"></i>
-            <i className="fa fa-instagram"></i>
-            <i className="fa fa-envelope-o"></i>
+          <div className="sidebar__item__follow__links ">
+            <div className="sidebar__item__title">
+              <h6>Follow</h6>
+            </div>
+            <div classNam="container d-flex justify-content-center">
+              <div className="d-flex justify-content-between">
+                <i className="fa fa-facebook fa-2x"></i>
+                <i className="fa fa-twitter fa-2x"></i>
+                <i className="fa fa-youtube-play fa-2x"></i>
+                <i className="fa fa-instagram fa-2x"></i>
+                <i className="fa fa-envelope-o fa-2x"></i>
+              </div>
+            </div>
           </div>
         </div>
         <div className="sidebar__item__banner">
-          img banner
-                    </div>
+          <h6>img banner</h6>
+        </div>
         <div className="sidebar__item__categories">
           <div className="sidebar__item__title">
             <h6>Categories</h6>
@@ -86,7 +93,6 @@ class InfoRightBar extends React.Component {
             <h6>Subscribe</h6>
           </div>
           <p>Subscribe to our newsletter and get our newest updates right on your inbox.</p>
-
         </div>
       </div>
     );

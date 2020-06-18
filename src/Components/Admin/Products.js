@@ -52,6 +52,7 @@ class Products extends React.Component {
   }
   render() {
     let { products, types } = this.props;
+    console.log(products);
     let listType = types.map((type, index) => {
       return (
         <option key={index} value={type.name}> {type.name} </option>
