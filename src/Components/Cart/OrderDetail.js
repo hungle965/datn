@@ -41,6 +41,10 @@ class OrderDetail extends React.Component {
     });
   }
 
+  printDiv = () => {
+    window.print();
+  }
+
   onChange = (e) => {
     const target = e.target;
     const name = target.name;
@@ -88,7 +92,7 @@ class OrderDetail extends React.Component {
       )
     });
     return (
-      <div>
+      <div id="printDiv">
         <table className=" container table table-hover">
           <thead className="thead-dark">
             <tr>
@@ -189,6 +193,9 @@ class OrderDetail extends React.Component {
             {itemOrder}
           </tbody>
         </table>
+        <div className="d-flex justify-content-center">
+          <button onClick={() => this.printDiv()} className="btn btn-primary">Print</button>
+        </div>
       </div>
     );
   }
