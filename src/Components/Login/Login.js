@@ -100,7 +100,6 @@ class Login extends React.Component {
 
     for (var i = 0; i < 5; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
-
     return text;
   }
 
@@ -223,6 +222,7 @@ class Login extends React.Component {
               </div>
               <div className={isDisplay === false ? ' tab-pane active' : 'tab-pane'} id="tabs-2" role="tabpanel">
                 <div className="signin__form__text">
+                  <p>username: "admin", password: "1" to review</p>
                   <p>with your social network :</p>
                   <div className="rounded">
                     <FacebookLogin
@@ -232,7 +232,7 @@ class Login extends React.Component {
                       onClick={this.componentClicked}
                       callback={this.responseFacebook} />
                   </div>
-                  <div className="divide">or</div>
+                  <div className="divide signin__form__text ">or: </div>
                   <form onSubmit={this.onSubmitLogin}>
                     <input type="text"
                       name="userName"
